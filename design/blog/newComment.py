@@ -10,10 +10,8 @@ import os
 def new_blog_post(doc, request):
     doc = json.loads(request['body'])
     doc['_id'] = str(uuid.uuid1()).replace('-','')
-    doc['type'] = 'blog-post'
+    doc['type'] = 'blog-comment'
     doc['body-rendered'] = markdown2.markdown(doc['body-raw'], safe_mode=False)
     if 'timestamp' not in doc:
         doc['timestamp'] = datetime.now().isoformat()
-    if 'modified-timestamp' not in doc:
-        doc['modified-timestamp'] = doc['timestamp']
     return doc, doc['_id']
